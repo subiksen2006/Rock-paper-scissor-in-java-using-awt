@@ -1,0 +1,110 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class RockPaperScissorsAWT {
+    
+    private static String[] choices = {"Rock", "Paper", "Scissors"};
+    private static String userChoice;
+    private static String computerChoice;
+    
+    // Method to generate computer's choice randomly
+    private static String getComputerChoice() {
+        int rand = (int) (Math.random() * 3);
+        return choices[rand];
+    }
+    
+    // Method to determine the winner
+    private static String determineWinner(String userChoice, String computerChoice) {
+        if (userChoice.equals(computerChoice)) {
+            return "It's a tie!";
+        } else if ((userChoice.equals("Rock") && computerChoice.equals("Scissors")) ||
+                   (userChoice.equals("Paper") && computerChoice.equals("Rock")) ||
+                   (userChoice.equals("Scissors") && computerChoice.equals("Paper"))) {
+            return "You Win!";
+        } else {
+            return "Computer Wins!";
+        }
+    }
+
+    public static void main(String[] args) {
+        // Creating Frame for the GUI
+        Frame frame = new Frame("Rock Paper Scissors Game");
+        frame.setSize(400, 300);
+        frame.setLayout(new FlowLayout());
+        
+        // Creating Buttons for Rock, Paper, and Scissors
+        Button rockButton = new Button("Rock");
+        Button paperButton = new Button("Paper");
+        Button scissorsButton = new Button("Scissors");
+        
+        // Labels to show choices and the result
+        Label labelUserChoice = new Label("Your Choice: ");
+        Label labelComputerChoice = new Label("Computer's Choice: ");
+        Label resultLabel = new Label("Result: ");
+        
+        // Text Fields to display the choices
+        TextField userChoiceField = new TextField(10);
+        TextField computerChoiceField = new TextField(10);
+        TextField resultField = new TextField(15);
+        
+        // Set text fields as non-editable
+        userChoiceField.setEditable(false);
+        computerChoiceField.setEditable(false);
+        resultField.setEditable(false);
+        
+        // Add components to the frame
+        frame.add(rockButton);
+        frame.add(paperButton);
+        frame.add(scissorsButton);
+        frame.add(labelUserChoice);
+        frame.add(userChoiceField);
+        frame.add(labelComputerChoice);
+        frame.add(computerChoiceField);
+        frame.add(resultLabel);
+        frame.add(resultField);
+        
+        // Event listener for Rock button
+        rockButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                userChoice = "Rock";
+                userChoiceField.setText(userChoice);
+                computerChoice = getComputerChoice();
+                computerChoiceField.setText(computerChoice);
+                resultField.setText(determineWinner(userChoice, computerChoice));
+            }
+        });
+        
+        // Event listener for Paper button
+        paperButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                userChoice = "Paper";
+                userChoiceField.setText(userChoice);
+                computerChoice = getComputerChoice();
+                computerChoiceField.setText(computerChoice);
+                resultField.setText(determineWinner(userChoice, computerChoice));
+            }
+        });
+        
+        // Event listener for Scissors button
+        scissorsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                userChoice = "Scissors";
+                userChoiceField.setText(userChoice);
+                computerChoice = getComputerChoice();
+                computerChoiceField.setText(computerChoice);
+                resultField.setText(determineWinner(userChoice, computerChoice));
+            }
+        });
+        
+        // Close the application when the window is closed
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent we) {
+                System.exit(0);
+            }
+        });
+        
+        // Set the frame visible
+        frame.setVisible(true);
+    }
+}
